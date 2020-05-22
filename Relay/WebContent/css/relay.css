@@ -1,0 +1,109 @@
+@charset "UTF-8";
+a,
+i,
+.fa,
+.btn,
+.btn:hover,
+a:hover,
+a:focus,
+.transition,
+#back-to-top:hover,
+.title2:hover:after,
+.title2:after
+{
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+.team {
+  max-width: 243px;
+  margin: 45px auto 0px;
+  padding: 0px 10px;
+}
+.team h3 {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #e60e63;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.team p {
+  font-weight: 500;
+  font-size: 14px;
+}
+.team-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.team-image img {
+  max-width: 223px;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+.team-image .social-icons {
+  position: absolute;
+  bottom: -22%;
+  width: 100%;
+  text-align: center;
+  background: -webkit-linear-gradient(-45deg, rgba(230,14,99,.9) 0%,rgba(209,36,146,.9) 100%);
+  background: linear-gradient(135deg, rgba(230,14,99,.9) 0%,rgba(209,36,146,.9) 100%);
+  padding: 10px 0px 5px;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+.team-image .social-icons a {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #fff;
+  position: relative;
+  margin-right: 2px;
+  bottom: 0px;
+}
+.team-image .social-icons a i {
+  font-size: 18px;
+  position: absolute;
+  top: 51%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.team-image .social-icons a:hover i {
+  color: #b60b4e;
+}
+.team-image:hover .social-icons {
+  bottom: 0%;
+}
+.team-image:hover img {
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.team-image .social-icons a:hover {
+  bottom: 5px;
+}
+#takerinfo li:not(:first-child):before {
+   	content: "| ";
+   	font-weight: normal;
+   	font-size: 1.1rem;
+}
+#takerinfo li{
+	font-weight: normal;
+	font-size: 0.9rem;
+}
+.progress-bar {
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+#relay {
+	padding-bottom: 90px;
+}

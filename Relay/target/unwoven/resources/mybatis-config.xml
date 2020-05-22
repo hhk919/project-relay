@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<typeAliases>
+		<typeAlias alias="board" type="relay.vo.board.BoardVO"/>
+		<typeAlias alias="reply" type="relay.vo.reply.ReplyVO" />
+		<typeAlias alias="notice" type="relay.vo.notice.NoticeVO"/>
+		<typeAlias alias="member" type="relay.vo.member.MemberVO"/>
+		<typeAlias alias="wishlist" type="relay.vo.wishlist.WishlistVO"/>
+		<typeAlias alias="message" type="relay.vo.message.MessageVO"/>
+		<typeAlias alias="relay" type="relay.vo.relay.RelayVO"/>
+		
+		<typeAlias alias="admin" type="relay.vo.member.MemberVO" />
+	</typeAliases>
+	
+	<mappers>
+		<mapper class="relay.mapper.board.BoardMapper"/>
+		<mapper class="relay.mapper.reply.ReplyMapper"/>
+		<mapper class="relay.mapper.notice.NoticeMapper"/>
+		<mapper class="relay.mapper.wishlist.WishlistMapper"/>
+		<mapper class="relay.mapper.message.MessageMapper"/>
+		<mapper class="relay.mapper.relay.RelayMapper"/>
+		
+		<mapper resource="resources/user-mappingmember.xml"/>
+		<mapper resource="resources/user-mappinglogin.xml"/>
+		<mapper resource="resources/admin-mappingmember.xml"/>
+	</mappers>
+</configuration>

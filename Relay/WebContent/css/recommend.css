@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.card:hover{
+	background-color: #eaeaea;
+	-webkit-transition: background-color 400ms linear;
+    -ms-transition: background-color 400ms linear;
+    transition: background-color 400ms linear;
+}
+#title hr{
+	margin-top: 5px;
+}

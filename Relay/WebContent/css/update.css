@@ -1,0 +1,9 @@
+@charset "UTF-8";
+#main {
+	padding-top: 30px;
+	padding-bottom: 120px;
+}
+img {
+	max-height: 200px;
+	max-width: 200px;
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+
+	<!-- 회원개별정보
+	<select id="selectMember" parameterType="admin" resultType="admin">
+		select * from member join detail using(mno) where mno= #{mno}
+	</select>  -->
+	
+	<select id="selectAllMember" parameterType="admin" resultType="admin">
+		SELECT * FROM member JOIN detail USING (mno)
+	</select>
+	
+	<!-- 회원탈퇴 delete 대신 update로 정보 변경 -->
+	<update id="deleteMember" parameterType="admin">
+		UPDATE member SET id = dno.nextval, pw = dno.currval, name = dno.currval, nick = dno.currval, birth = 000000, sex = 1, addr = dno.currval WHERE mno = #{mno} 
+	</update>
+	
+	<!--  관리자페이지에서는 회원을 DB에서 삭제 -->
+	<delete id="deleteMember2" parameterType="admin">
+		DELETE FROM member WHERE mno = #{mno} 
+	</delete> 
+	
+</mapper>
+

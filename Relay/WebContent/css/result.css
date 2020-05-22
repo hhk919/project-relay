@@ -1,0 +1,33 @@
+@charset "UTF-8";
+.blue{
+	color:#0069D9;
+}
+.red{
+	color:red;
+}
+.rotate{
+	animation:mk22_rotate 1s linear infinite;
+}
+@keyframes mk22_rotate{
+    from{transform:rotate(270deg)}
+    to{transform:rotate(360deg)}
+}
+@keyframes mk22_move{
+    from{transform:translateX(-100px)}
+    to{transform:translateX(1200px)}
+}
+.image_set{
+animation:mk22_move 20s linear infinite;border-radius:50%;margin-top:40px;
+}
+#main {
+	padding-top: 30px;
+	padding-bottom: 120px;
+}
+h4 a {
+     text-decoration: none!important;
+}
+h4 a:hover {
+    color:#343A40!important;
+    text-decoration:none!important;
+    cursor:pointer!important;
+}

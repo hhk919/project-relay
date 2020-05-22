@@ -1,0 +1,21 @@
+@charset "UTF-8";
+body{
+	background-color: #E9ECEF;
+}
+.col-lg-8{
+	padding-left: 60px;
+	padding-right: 50px;
+}
+.body a:hover {
+    color:#343A40!important;
+    text-decoration:none!important;
+    cursor:pointer!important;
+}
+.body a:visited{
+	color: #A269D3;
+}
+.productimg:hover img {
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}

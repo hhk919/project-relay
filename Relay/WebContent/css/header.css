@@ -1,0 +1,18 @@
+@charset "UTF-8";
+#searchview{
+	display: none;
+	padding: 23px;
+}
+#searchword{
+	border: none;
+}
+#searchword:active{
+	border: none !important;
+	outline: none !important;
+	box-shadow:none !important;
+}
+#searchword:focus{
+	border: none !important;
+	outline: none !important;
+	box-shadow:none !important;
+}

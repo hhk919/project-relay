@@ -79,7 +79,7 @@ public class APISearch {
 			JSONObject ob = (JSONObject) par.parse(isr);
 			// response 결과는 json 형태로 상품들의 정보는 key가 'item'인 value에 있다.
 			parsed = (ArrayList<JSONObject>) ob.get("items");
-			parsed.forEach(x -> System.out.println(x));
+			// parsed.forEach(x -> System.out.println(x));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch(ParseException e) {

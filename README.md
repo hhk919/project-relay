@@ -1,5 +1,5 @@
 # project-relay
-repository for project relay made of Java, Spring framework with MySQL, MongoDB
+repository for project 「RELAY」 made of Java, Spring framework with MySQL, MongoDB
 
 담당한 부분
 <br><br>

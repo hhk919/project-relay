@@ -18,26 +18,26 @@ import relay.vo.product.ShoppingCondition;
 
 public class APISearch {
 
-	// API Connection °´Ã¼¸¦ Àü¿ªº¯¼ö·Î Àü¾ğ
+	// API Connection ê°ì²´ë¥¼ ì „ì—­ë³€ìˆ˜ë¡œ ì „ì–¸
 	private static HttpURLConnection conn;
 
-	// API Connection °´Ã¼ÀÇ attribute º¯¼ö ¼³Á¤(naver developer ¿¡¼­ ¹ŞÀº ID, PW ±×¸®°í GET¹æ½ÄÀ¸·Î
-	// request¿äÃ»)
+	// API Connection ê°ì²´ì˜ attribute ë³€ìˆ˜ ì„¤ì •(naver developer ì—ì„œ ë°›ì€ ID, PW ê·¸ë¦¬ê³  GETë°©ì‹ìœ¼ë¡œ
+	// requestìš”ì²­)
 	private final static HttpURLConnection connection(URL url) {
 		try {
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
-			conn.setRequestProperty("X-Naver-Client-Id", "tiKUZvCpQGEPI0wc7iX8");
-			conn.setRequestProperty("X-Naver-Client-Secret", "BXS_2Ams3x");
+			conn.setRequestProperty("X-Naver-Client-Id", "********");
+			conn.setRequestProperty("X-Naver-Client-Secret", "********");
 		} catch (IOException e) {
 			System.err.println("API Request Failed");
 		}
 		return conn;
 	}
 
-	// Controller¿¡¼­ °Ë»ö¾î, Ãâ·ÂµÉ »óÇ° °³¼ö, ½ÃÀÛÁöÁ¡, sorting¹æ½ÄÀ» ShoppingCondition °´Ã¼¿¡ ´ã¾Æ Àü´Ş
-	// Àü´Ş ¹ŞÀº °ªÀ» API ¿äÃ»ÁÖ¼ÒÀÇ query parameter¿¡ ´ëÀÔ½ÃÅ°°í connection ¿¬°á
-	// response °á°ú¸¦ parsing()·Î Ã³¸®ÇÏ¿© return
+	// Controllerì—ì„œ ê²€ìƒ‰ì–´, ì¶œë ¥ë  ìƒí’ˆ ê°œìˆ˜, ì‹œì‘ì§€ì , sortingë°©ì‹ì„ ShoppingCondition ê°ì²´ì— ë‹´ì•„ ì „ë‹¬
+	// ì „ë‹¬ ë°›ì€ ê°’ì„ API ìš”ì²­ì£¼ì†Œì˜ query parameterì— ëŒ€ì…ì‹œí‚¤ê³  connection ì—°ê²°
+	// response ê²°ê³¼ë¥¼ parsing()ë¡œ ì²˜ë¦¬í•˜ì—¬ return
 	public static ArrayList<JSONObject> searchList(ShoppingCondition sc) {
 
 		ArrayList<JSONObject> array = new ArrayList<JSONObject>();
@@ -46,15 +46,15 @@ public class APISearch {
 			int display = sc.getDisplay();
 			int start = sc.getStart();
 			String sort = sc.getSort();
-			// API ¿äÃ» ÁÖ¼Ò
+			// API ìš”ì²­ ì£¼ì†Œ
 			String apiURL = "https://openapi.naver.com/v1/search/shop.json?query=" + text + "&display=" + display
 					+ "&start=" + start + "&sort=" + sort;
 			URL url = new URL(apiURL);
-			// À­ ÁÖ¼Ò·Î connection ¿¬°á
+			// ìœ— ì£¼ì†Œë¡œ connection ì—°ê²°
 			conn = connection(url);
 			int responseCode = conn.getResponseCode();
-			// responsecode°¡ 200ÀÏ ¶§, Áï ¿À·ù¾øÀÌ ¿äÃ» ¼º°øÀÏ ¶§ InputStreamÀ» ¿­¾î °á°ú¸¦ °¡Àú¿È
-			// ±×¸®°í ¾Æ·¡ parsing()(#76 line)À¸·Î °á°ú Áß ³×ÀÌ¹ö »óÇ°Á¤º¸ format¿¡ ¸Â´Â »óÇ°µé¸¸ °¡Á®¿È
+			// responsecodeê°€ 200ì¼ ë•Œ, ì¦‰ ì˜¤ë¥˜ì—†ì´ ìš”ì²­ ì„±ê³µì¼ ë•Œ InputStreamì„ ì—´ì–´ ê²°ê³¼ë¥¼ ê°€ì €ì˜´
+			// ê·¸ë¦¬ê³  ì•„ë˜ parsing()(#76 line)ìœ¼ë¡œ ê²°ê³¼ ì¤‘ ë„¤ì´ë²„ ìƒí’ˆì •ë³´ formatì— ë§ëŠ” ìƒí’ˆë“¤ë§Œ ê°€ì ¸ì˜´
 			if (responseCode == 200) {
 				array = parsing(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			} else {
@@ -71,13 +71,13 @@ public class APISearch {
 		return array;
 	}
 
-	// response °á°ú Áß ÇÊ¿äÇÑ ³»¿ë¸¸ °¡Á®¿È
+	// response ê²°ê³¼ ì¤‘ í•„ìš”í•œ ë‚´ìš©ë§Œ ê°€ì ¸ì˜´
 	private static ArrayList<JSONObject> parsing(InputStreamReader isr) {
 		ArrayList<JSONObject> parsed = null;
 		try {
 			JSONParser par = new JSONParser();
 			JSONObject ob = (JSONObject) par.parse(isr);
-			// response °á°ú´Â json ÇüÅÂ·Î »óÇ°µéÀÇ Á¤º¸´Â key°¡ 'item'ÀÎ value¿¡ ÀÖ´Ù.
+			// response ê²°ê³¼ëŠ” json í˜•íƒœë¡œ ìƒí’ˆë“¤ì˜ ì •ë³´ëŠ” keyê°€ 'item'ì¸ valueì— ìˆë‹¤.
 			parsed = (ArrayList<JSONObject>) ob.get("items");
 			parsed.forEach(x -> System.out.println(x));
 		} catch (IOException e) {

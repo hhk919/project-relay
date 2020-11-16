@@ -10,8 +10,8 @@ public class ProductVO {
 	private String pmall;
 	private String pmallurl;
 	private String pimg;
+	private String brand;
 	private String cat;
-	private long catid;
 	private String tags;
 
 	public ProductVO() {
@@ -23,13 +23,13 @@ public class ProductVO {
 		this.pmall = "";
 		this.pmallurl = "";
 		this.pimg = "";
+		this.brand = "";
 		this.cat = "";
-		this.catid = 0L;
 		this.tags = "";
 	}
 
 	public ProductVO(long pid, String pname, int phprice, int plprice, String pmall, String pmallurl, String pimg,
-			String cat, long catid, String tags) {
+			String cat, String brand, String tags) {
 		this.pid = pid;
 		this.pname = pname;
 		this.phprice = phprice;
@@ -37,8 +37,8 @@ public class ProductVO {
 		this.pmall = pmall;
 		this.pmallurl = pmallurl;
 		this.pimg = pimg;
+		this.brand = brand;
 		this.cat = cat;
-		this.catid = catid;
 		this.tags = tags;
 	}
 
@@ -98,20 +98,20 @@ public class ProductVO {
 		this.pimg = pimg;
 	}
 
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 	public String getCat() {
 		return cat;
 	}
 
 	public void setCat(String cat) {
 		this.cat = cat;
-	}
-
-	public long getCatid() {
-		return catid;
-	}
-
-	public void setCatid(long catid) {
-		this.catid = catid;
 	}
 
 	public String getTags() {
@@ -129,5 +129,5 @@ public class ProductVO {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	
+
 }

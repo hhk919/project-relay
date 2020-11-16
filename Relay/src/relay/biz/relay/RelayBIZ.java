@@ -80,7 +80,6 @@ public class RelayBIZ {
 		gift.setPmallurl(data.get("pmallurl"));
 		gift.setPimg(data.get("pimg"));
 		gift.setCat(data.get("cat"));
-		gift.setCatid(Long.parseLong(data.get("catid")));
 		gift.setTags(data.get("tags"));
 		return dao.updateGift(listId, memberId, gift);
 	}

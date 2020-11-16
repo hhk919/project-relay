@@ -19,23 +19,16 @@
 <script>
 	var $j = jQuery.noConflict();
 	$j(document).ready(function(){
-	
 	});
-	
-	$j(document)
-			.on(
-					'click',
-					'#btnList',
-					function() {
-						location.href = "${pageContext.request.contextPath}/board/getBoardList";
-					});
-	
+	$j(document).on('click','#btnList',
+			function() {
+				location.href = "${pageContext.request.contextPath}/board/getBoardList";
+			});
 	$j('#myModal').on('shown.bs.modal', function () {
 		  $j('#myInput').trigger('focus')
 		});
 </script>
 <%
-
 	if (session.getAttribute("vo1") == null)
 	{
 %>

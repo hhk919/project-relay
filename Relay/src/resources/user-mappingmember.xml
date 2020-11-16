@@ -7,41 +7,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="member" statementType="CALLABLE">
 	{call 
-		MEM_INSERT (#{id}, #{pw},#{name},#{nick},#{birth}, #{sex}, #{addr},#{gender},#{age}, #{job}, #{hobby})}
+		MEM_INSERT (#{id}, #{pw}, #{name}, #{nick}, #{birth}, #{sex}, #{addr}, #{gender}, #{age}, #{job}, #{hobby})}
 	</insert>
 	
 	<!-- 회원수정 -->
 	<update id="updateMember" parameterType="member" statementType="CALLABLE">
 	{call
-		MEM_UPDATE (#{id}, #{pw}, #{nick}, #{addr}, #{job}, #{hobby})
+		MEM_UPDATE (#{id}, #{pw}, #{nick}, #{addr}, #{job}, #{hobby})}
 	</update>	
 	
 	<!-- 회원개별정보 -->
 	<select id="getMember" parameterType="member" resultType="member">
-		SELECT * FROM member JOIN detail USING (mno) WHERE id = #{id}
+		SELECT * FROM relay.member JOIN relay.detail USING (mno) WHERE id = #{id}
 	</select>
 	
 	<!-- 회원탈퇴 delete 대신 update로 정보 변경 -->
 	<update id="deleteMember" parameterType="member">
-		UPDATE member SET id = dno.nextval, pw = dno.currval, name = dno.currval, nick = dno.currval, birth = 000000, sex = 1, addr = dno.currval WHERE id = #{id} AND pw = #{pw}
+		UPDATE relay.member m JOIN relay.detail d ON m.mno = d.mno SET m.id = CONCAT('quit',m.mno), m.pw = CONCAT('quit',m.mno), m.name = CONCAT('quit',m.mno), m.nick = CONCAT('quit',m.mno), m.birth = 000000, m.sex = 0, m.addr = 'None', d.age = 0, d.outdate = curdate() WHERE id = #{id} AND pw = #{pw}
 	</update>
 	
 	<!-- 아이디 유효성 검사 -->
 	<select parameterType="java.lang.String" id="validateID" resultType="int">
-		SELECT COUNT(*) FROM member WHERE id = #{id, jdbcType=VARCHAR}
+		SELECT COUNT(*) FROM relay.member WHERE id = #{id, jdbcType=VARCHAR}
 	</select>
 	
 	<!-- 닉네임 유효성 검사 -->
 	<select parameterType="java.lang.String" id="validateNick" resultType="int">
-		SELECT COUNT(*) FROM member WHERE UPPER(nick) = UPPER(#{nick, jdbcType=VARCHAR})
+		SELECT COUNT(*) FROM relay.member WHERE UPPER(nick) = UPPER(#{nick, jdbcType=VARCHAR})
 	</select>
 	
 	<select parameterType="member" id="getMemberNick" resultType="member">
-		SELECT nick, id FROM member where nick = #{nick, jdbcType=VARCHAR}
+		SELECT mno, id, nick FROM relay.member WHERE nick = #{nick, jdbcType=VARCHAR}
 	</select>
 	
 	<select parameterType="java.lang.String" id="getMemberNO" resultType="int">
-		SELECT mno FROM member WHERE nick = #{nick, jdbcType=VARCHAR}
+		SELECT mno FROM relay.member WHERE nick = #{nick, jdbcType=VARCHAR}
 	</select>
 	
 </mapper>

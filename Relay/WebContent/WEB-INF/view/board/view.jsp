@@ -37,6 +37,7 @@
 		var c = "#replyupdatetextarea"+cno;
 		var ccontent= $j(c).val();
 		var bno = '<c:out value="${vo.bno}"/>';
+		var mno = '<c:out value="${vo.mno}"/>';
 		var creplyer = '<c:out value="${vo1.getNick()}"/>';
 		$j.ajax({
 			type : 'put',
@@ -80,14 +81,19 @@
 				else{
 					for(var i in result){
 						output += "<li class='list-group-item' data-cno='"+result[i].cno+"'>";
-						output += "  <div><div class='header'><strong>"+result[i].creplyer+"</strong>"; 
-						output += "    <small class='pull-right text-muted'>"
-			     	           +changeDate(result[i].cdate)+"</small></div>";
+						output += "  <div><div class='header'><strong>"+result[i].creplyer+"</strong>";
+						if (!result[i].cupdate) {
+							output += "   <small class='pull-right text-muted'>"+changeDate(result[i].cdate)+"</small></div>";	
+						} else {
+							output += "   <small class='pull-right text-muted'>"+changeDate(result[i].cupdate)+"</small></div>";						
+						}
 						output += ""+result[i].ccontent;
 						if('<c:out value="${vo1.getNick()}"/>' == result[i].creplyer){
 							output += "<div class='float-right'>";
-							output += "<i class='fas fa-hammer mr-2' id='btnUpdate' onclick='replyUpdateShow("+result[i].cno+")'> 수정</i>";
-							output += "<i class='fas fa-trash-alt' id='btnDelete' onclick='replyDelete("+result[i].cno+")'> 삭제</i>";
+							if (result[i].ccontent!="삭제된 댓글입니다."){
+								output += "<i class='fas fa-hammer mr-2' id='btnUpdate' onclick='replyUpdateShow("+result[i].cno+")'> 수정</i>";
+								output += "<i class='fas fa-trash-alt' id='btnDelete' onclick='replyDelete("+result[i].cno+")'> 삭제</i>";
+							}
 							output += "</div>";
 							output += "<div class='rp mt-3' id='replyupdatetext"+result[i].cno+"'>";
 							output += "<textarea rows='5' cols='80' class='form-control' id='replyupdatetextarea"+result[i].cno+"'>" + result[i].ccontent + "</textarea>";
@@ -122,13 +128,15 @@
 			$j('#replyInsertEmptyModal').modal("show");
 		}
 		var bno = '<c:out value="${vo.bno}"/>';
+		var mno = '<c:out value="${vo.mno}"/>';
 		var creplyer = '<c:out value="${vo1.getNick()}"/>';
 		$j.ajax({
 			type : 'post',
 			url : '/Relay/replyInsert.do',
 			dataType: "text",
 			data : JSON.stringify({
-				bno : bno, 
+				bno : bno,
+				mno : mno,
 				ccontent : ccontent,
 				creplyer : creplyer
 			}),

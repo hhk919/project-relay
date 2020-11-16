@@ -24,22 +24,17 @@
 		getUnreadCount();
 	});
 	
-	function getMessage(sno, restate){
+	function getMessage(sno){
 		var mno = '<c:out value="${vo1.mno}"/>';
 		$.ajax({
 			type : 'put',
-			url : '/Relay/message/getMessage.do?sno='+sno+'&mno2='+mno,
+			url : '/Relay/message/getMessage.do?sno='+sno,
 			dataType : 'text',
-			data : JSON.stringify({
-				sno : sno,
-				mno : mno,
-			}),
+			data : {sno : sno},
 			contentType : "application/json; charset=UTF-8",
 			success : function(){
-				if(restate != 5){
-					$("#"+sno).removeClass("btn-warning").addClass("btn-light");					
-				}
 				getUnreadCount();
+				$("#"+sno).removeClass("btn-warning").addClass("btn-light");
 			},
 			error : function(){
 				alert("읽기 실패");
@@ -47,7 +42,7 @@
 		})
 	}
 	
-	function updateRestate(sno, rno, restate){
+/* 	function updateRestate(sno, rno, restate){
 		var mno = '<c:out value="${vo1.mno}"/>';
 		$.ajax({
 			type : 'put',
@@ -74,14 +69,14 @@
 				alert("답변 반영 실패");
 			},
 		})
-	}
+	} */
 	
 	function getList(){
-		var mno = '<c:out value="${vo1.mno}"/>';
+		var receiver = '<c:out value="${vo1.mno}"/>';
 		$.ajax({
 			type : "get",
 			dataType : "json",
-			url : "/Relay/message/list.do?mno="+mno,
+			url : "/Relay/message/list.do?receiver="+receiver,
 			success : function(result){
 				var output = "";
 				if($.isEmptyObject(result)){
@@ -96,43 +91,26 @@
 						output += "<ul class='list-group list-group-flush' id='inboxlist'>";
 						output += "<li class='list-group-item'>";
 						if(result[i].sstate == 1){
-							output += "<button class='btn btn-warning btn-sm' id='"+result[i].sno+"' type='button' onclick='getMessage("+result[i].sno+","+result[i].restate+")' data-toggle='collapse' data-target='#collapseExample"+result[i].sno+"' aria-expanded='false' aria-controls='collapseExample'>";
-						}else if(result[i].restate == 3){
-							output += "<button class='btn btn-light btn-sm' id='"+result[i].sno+"' type='button' onclick='getMessage("+result[i].sno+","+result[i].restate+")' data-toggle='collapse' data-target='#collapseExample"+result[i].sno+"' aria-expanded='false' aria-controls='collapseExample'>";
-						}else if(result[i].restate == 4){
-							output += "<button class='btn btn-light btn-sm' id='"+result[i].sno+"' type='button' onclick='getMessage("+result[i].sno+","+result[i].restate+")' data-toggle='collapse' data-target='#collapseExample"+result[i].sno+"' aria-expanded='false' aria-controls='collapseExample'>";
-						}else if(result[i].restate == 5){
-							output += "<button class='btn btn-warning btn-sm' id='"+result[i].sno+"' type='button' onclick='getMessage("+result[i].sno+","+result[i].restate+")' data-toggle='collapse' data-target='#collapseExample"+result[i].sno+"' aria-expanded='false' aria-controls='collapseExample'>";
-						}else{
-							output += "<button class='btn btn-light btn-sm' id='"+result[i].sno+"' type='button' onclick='getMessage("+result[i].sno+","+result[i].restate+")' data-toggle='collapse' data-target='#collapseExample"+result[i].sno+"' aria-expanded='false' aria-controls='collapseExample'>";						
+							output += "<button class='btn btn-warning btn-sm' id='"+result[i].sno+"' type='button' onclick='getMessage("+result[i].sno+")' data-toggle='collapse' data-target='#collapseExample"+result[i].sno+"' aria-expanded='false' aria-controls='collapseExample'>";
+						} else {
+							output += "<button class='btn btn-light btn-sm' id='"+result[i].sno+"' type='button' onclick='getMessage("+result[i].sno+")' data-toggle='collapse' data-target='#collapseExample"+result[i].sno+"' aria-expanded='false' aria-controls='collapseExample'>";						
 						}
 						output += result[i].stitle;
 						output += "</button>";
-						output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].nick+" | "+changeDate(result[i].sdate)+"</div>";
+						output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].snick+" | "+changeDate(result[i].sdate)+"</div>";
 						output += "<div class='collapse mt-2' id='collapseExample"+result[i].sno+"'>";
 						output += "<div class='card card-body'>";
 						output += result[i].scontent;
 						output += "</div>";
-						if(result[i].restate == 5){
-							output += "<button class='btn btn-success btn-sm mt-1' id='accept' onclick='updateRestate("+result[i].sno+","+result[i].rno+",3)'>릴레이 수락</button>";					
-							output += "<button class='btn btn-danger btn-sm mt-1 ml-1' id='refuse' onclick='updateRestate("+result[i].sno+","+result[i].rno+",4)'>릴레이 거절</button>";					
-						}
 						output += "<div class='float-right'>";
 						output += "<button class='btn btn-info btn-sm mt-1' id='btnDelete' onclick='deleteMessage("+result[i].sno+")'>삭제</button>";
 						output += "</div>";
 						output += "<div id='invitation'>";
-						if(result[i].restate == 5){
-							output += "<p class='text-muted mt-1' style='font-size:0.85em'>상대방으로부터 릴레이 초대가 있습니다.</p>";
-							output += "<ul class='list-unstyled' style='font-size:0.85em' id='rinfo"+result[i].rno+"'>";
-							output += "<li class='mt-1'>abc</li>";
-							output += "</ul>";
-						}
 						output += "</div>";
 						output += "</div>";
 						output += "</li>";
 						output += "</ul>";
 						$("#messagelist").html(output);
-						getRelayInfo(result[i].rno);
 					}
 					count = $("#inboxlist li").length;
 					if(!$.isEmptyObject(result) & count > 5){
@@ -150,7 +128,7 @@
 	    });
 	}
 	
-	function getRelayInfo(rno){
+/* 	function getRelayInfo(rno){
 		$.ajax({
 			type : "get",
 			dataType : "json",
@@ -167,7 +145,7 @@
 				}
 	        },
 	    });
-	}
+	} */
 	
 	function getUnreadCount(){
 		var mno = '<c:out value="${vo1.mno}"/>';
@@ -188,7 +166,7 @@
 	function deleteMessage(sno){
 		$.ajax({
 			type : 'put', 
-			url : '/Relay/message/delete.do?sno=' + sno,
+			url : '/Relay/message/delete.do?svis=3&sno=' + sno,
 			success : function(){
 				alert("삭제되었습니다.");
 				getList();

@@ -15,11 +15,11 @@ public class MessageDAO {
 	@Autowired
 	private SqlSessionFactory factory;
 
-	public List<MessageVO> getList(String mno) {
+	public List<MessageVO> getList(String receiver) {
 		List<MessageVO> list = null;
 		try {
 			MessageMapper mapper = factory.openSession().getMapper(MessageMapper.class);
-			list = mapper.getList(mno);
+			list = mapper.getList(receiver);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -64,11 +64,38 @@ public class MessageDAO {
 		return result;
 	}
 	
-	public int insertMessageForInvited(MessageVO vo) {
+//	public int insertMessageForInvited(MessageVO vo) {
+//		int result = 0;
+//		try {
+//			MessageMapper mapper = factory.openSession().getMapper(MessageMapper.class);
+//			result = mapper.insertMessageForInvited(vo);
+//			if(result > 0) {
+//				factory.openSession().commit();
+//			}else {
+//				factory.openSession().rollback();
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		return result;
+//	}
+
+	public int deleteMessage(int svis, int sno) {
 		int result = 0;
 		try {
 			MessageMapper mapper = factory.openSession().getMapper(MessageMapper.class);
-			result = mapper.insertMessageForInvited(vo);
+			result = mapper.deleteMessage(svis, sno);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int getMessage(int sno) {
+		int result = 0;
+		try {
+			MessageMapper mapper = factory.openSession().getMapper(MessageMapper.class);
+			result = mapper.getMessage(sno);
 			if(result > 0) {
 				factory.openSession().commit();
 			}else {
@@ -80,48 +107,21 @@ public class MessageDAO {
 		return result;
 	}
 
-	public int deleteMessage(int sno) {
-		int result = 0;
-		try {
-			MessageMapper mapper = factory.openSession().getMapper(MessageMapper.class);
-			result = mapper.deleteMessage(sno);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	public int getMessage(int sno, String mno2) {
-		int result = 0;
-		try {
-			MessageMapper mapper = factory.openSession().getMapper(MessageMapper.class);
-			result = mapper.getMessage(sno, mno2);
-			if(result > 0) {
-				factory.openSession().commit();
-			}else {
-				factory.openSession().rollback();
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	public int updateRestate(int sno, int mno2, int restate) {
-		int result = 0;
-		try {
-			MessageMapper mapper = factory.openSession().getMapper(MessageMapper.class);
-			result = mapper.updateRestate(sno, mno2, restate);
-			if(result > 0) {
-				factory.openSession().commit();
-			}else {
-				factory.openSession().rollback();
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
+//	public int updateRestate(int sno, int mno2, int restate) {
+//		int result = 0;
+//		try {
+//			MessageMapper mapper = factory.openSession().getMapper(MessageMapper.class);
+//			result = mapper.updateRestate(sno, mno2, restate);
+//			if(result > 0) {
+//				factory.openSession().commit();
+//			}else {
+//				factory.openSession().rollback();
+//			}
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		return result;
+//	}
+//	
 	
 }

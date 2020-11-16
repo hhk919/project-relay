@@ -56,7 +56,7 @@ public class APISearch {
 			// responsecode가 200일 때, 즉 오류없이 요청 성공일 때 InputStream을 열어 결과를 가저옴
 			// 그리고 아래 parsing()(#76 line)으로 결과 중 네이버 상품정보 format에 맞는 상품들만 가져옴
 			if (responseCode == 200) {
-				array = parsing(array, new InputStreamReader(conn.getInputStream(), "UTF-8"));
+				array = parsing(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 			} else {
 				System.out.println("responsecode : "+responseCode);
 			}
@@ -72,22 +72,20 @@ public class APISearch {
 	}
 
 	// response 결과 중 필요한 내용만 가져옴
-	private static ArrayList<JSONObject> parsing(ArrayList<JSONObject> array, InputStreamReader isr) {
-		
+	private static ArrayList<JSONObject> parsing(InputStreamReader isr) {
+		ArrayList<JSONObject> parsed = null;
 		try {
 			JSONParser par = new JSONParser();
 			JSONObject ob = (JSONObject) par.parse(isr);
 			// response 결과는 json 형태로 상품들의 정보는 key가 'item'인 value에 있다.
-			// 따라서 JSONParser로 items 부분만 추출하고 그중 'mallName'이 '네이버'인 상품만 가져온다.(format 때문에) 
-			ArrayList<JSONObject> parsed = (ArrayList<JSONObject>) ob.get("items");
-			parsed.removeIf(i -> !i.containsValue("네이버"));
-			array.addAll(parsed);
+			parsed = (ArrayList<JSONObject>) ob.get("items");
+			parsed.forEach(x -> System.out.println(x));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch(ParseException e) {
 			e.printStackTrace();
 		}
-		return array;
+		return parsed;
 	}
 
 }

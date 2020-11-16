@@ -66,7 +66,7 @@ var idn = 0;
 
 					var oMsg = $("#id_check");
 					var oId = $("#id");
-					var isID = /^[a-z0-9]{4,19}$/;
+					var isID = /^[a-z0-9]{1,19}$/;
 
 					$.ajax({
 						type : "POST",
@@ -82,7 +82,7 @@ var idn = 0;
 								} else if (!isID.test(oId.val())) {
 									idn = 0;
 									showErrorMsg(oMsg, oId,
-											"5~20자의 영문 소문자, 숫자만 사용 가능합니다.");
+											"2~20자의 영문 소문자, 숫자만 사용 가능합니다.");
 								} else {
 									idn = 1;
 									showSuccessMsg(oMsg, oId, "사용가능한 아이디입니다!");
@@ -210,7 +210,7 @@ var idn = 0;
 
 							var oMsg = $("#nick_check");
 							var onick = $("#nick");
-							var isNick = /^[a-z0-9A-Zㄱ-힣]{4,19}$/;
+							var isNick = /^[a-z0-9A-Zㄱ-힣]{1,19}$/;
 
 							$
 									.ajax({
@@ -229,7 +229,7 @@ var idn = 0;
 														.val())) {
 													nickn = 0;
 													showErrorMsg(oMsg, onick,
-															"특수기호로 시작할 수 없고, 5~20자만 사용 가능합니다.");
+															"특수기호로 시작할 수 없고, 2~20자만 사용 가능합니다.");
 												} else {
 													nickn = 1;
 													showSuccessMsg(oMsg, onick,

@@ -75,6 +75,17 @@ public class RelayController {
 		
 	}
 	
+	@RequestMapping("/relay/updateText.do")
+	public ResponseEntity<String> updateText(@RequestParam("listId")String listId, @RequestParam("id")String memberId, @RequestParam("words")String words) {
+		int updateCount = 0;
+//		System.out.println("updatemessage"+listId+memberId+words);
+		int result = ryBiz.updateMessage(listId, memberId, words);
+		if (result>0) {
+			updateCount = 1;
+		}
+		return updateCount == 1
+				? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 
 }

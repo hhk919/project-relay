@@ -11,7 +11,7 @@
 @import url("/Relay/css/admin.css");
 </style>
 <%
-	if (((MemberVO)session.getAttribute("vo1")).getMno() != 1)
+	if (((MemberVO)session.getAttribute("vo1")).getMno() > 6)
 	{
 %>
 		<jsp:forward page="/pages/login/login.jsp"/>
@@ -85,9 +85,9 @@
 							<td width="100">관리자</td>
 							</c:if>
 							
-							<td width="100"><fmt:formatDate pattern="yyyy-MM-dd"
+							<td width="100"><fmt:formatDate pattern="yyyy-MM-dd HH:MM:SS"
 									value="${notice.ndate}" /></td>
-							<td width="100"><fmt:formatDate pattern="yyyy-MM-dd"
+							<td width="100"><fmt:formatDate pattern="yyyy-MM-dd HH:MM:SS"
 									value="${notice.nupdate}" /></td>
 							<td width="100"><a href="noticeReadAdmin.do?nno=${notice.nno}" >공지글 조회</a></td>
 							<td align="left"><input type="button" value="Edit"

@@ -14,10 +14,6 @@ public class ShoppingCondition {
 		this.sort = sort;
 	}
 
-	public ShoppingCondition() {
-		
-	}
-
 	public String getWord() {
 		return word;
 	}

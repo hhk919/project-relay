@@ -75,10 +75,10 @@
 						<td width="100" align="center">${member.job}</td>
 						<td width="100" align="center">${member.hobby}</td>
 						<td width="100" align="center"><p style="font-size: 12px;">
-								<fmt:formatDate pattern="|yy-MM-dd|HH:mm:ss|"
+								<fmt:formatDate pattern="yyyy-MM-dd"
 									value="${member.joindate}" />
 						<td width="100" align="center"><p style="font-size: 12px;">
-								<fmt:formatDate pattern="|yy-MM-dd|HH:mm:ss|"
+								<fmt:formatDate pattern="yyyy-MM-dd"
 									value="${member.outdate}" />
 								
 						

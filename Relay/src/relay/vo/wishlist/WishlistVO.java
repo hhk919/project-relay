@@ -10,21 +10,22 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import relay.vo.member.MemberVO;
 import relay.vo.product.ProductVO;
 
-
-
 @Document(collection = "wishlist")
-@CompoundIndex(def = "{'member.id':1,'items.pid':-1}")
+@CompoundIndex(def = "{'member.id':-1}", background=true)
 public class WishlistVO {
 
 	@Field("member")
 	private MemberVO member;
 	@Field("items")
 	private List<ProductVO> items;
+	@Field("cnt")
+	private int cnt;
 
 	@PersistenceConstructor
-	public WishlistVO(MemberVO member, List<ProductVO> items) {
+	public WishlistVO(MemberVO member, List<ProductVO> items, int cnt) {
 		this.member = member;
 		this.items = items;
+		this.cnt = cnt;
 	}
 
 	public MemberVO getMember() {
@@ -43,9 +44,12 @@ public class WishlistVO {
 		this.items = items;
 	}
 
-	@Override
-	public String toString() {
-		return "WishlistVO [member=" + member + ", items=" + items + "]";
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 }

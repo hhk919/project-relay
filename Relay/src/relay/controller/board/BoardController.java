@@ -39,6 +39,7 @@ public class BoardController {
 	
 	@RequestMapping("/boardList.do")
 	public String getList(@PathParam("type") Criteria cri, Model model) {
+		cri.setOffset((cri.getPageNum()-1)*cri.getAmount());
 		int total = bBiz.getTotal(cri);
 		List<BoardVO> boardList = bBiz.getList(cri);
 		PageDTO pageMaker = new PageDTO(cri, total);
@@ -46,6 +47,7 @@ public class BoardController {
 		model.addAttribute("list_notice",noticeList);
 		model.addAttribute("list",boardList);
 		model.addAttribute("pageMaker",pageMaker);
+		
 		return "board/list";
 	}
 	
@@ -63,6 +65,7 @@ public class BoardController {
 		cri.setKeyword(nick);
 		cri.setType("W");
 		int total = bBiz.getTotal(cri);
+		cri.setOffset((cri.getPageNum()-1)*cri.getAmount());
 		List<BoardVO> boardList = bBiz.getList(cri);
 		PageDTO pageMaker = new PageDTO(cri, total);
 		List<NoticeVO> noticeList = nBiz.getListForBoard();
@@ -77,6 +80,7 @@ public class BoardController {
 		cri.setKeyword(btag);
 		cri.setType("H");
 		int total = bBiz.getTotal(cri);
+		cri.setOffset((cri.getPageNum()-1)*cri.getAmount());
 		List<BoardVO> boardList = bBiz.getList(cri);
 		PageDTO pageMaker = new PageDTO(cri, total);
 		List<NoticeVO> noticeList = nBiz.getListForBoard();

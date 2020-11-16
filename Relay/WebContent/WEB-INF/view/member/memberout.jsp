@@ -39,7 +39,7 @@
 
     <!-- Body -->
    	<div class="pb-4 pt-1">
-	    <c:if test="${result eq 1}">
+	    <c:if test="${result eq 2}">
 	    	<h5>이용해주셔서 감사했습니다</h5>
 		</c:if>
 		<c:if test="${result eq 0}">

@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class MemberVO extends Person {
 
 	private int mno; // 회원번호
-//	private int rno;
 	@Field("id")
 	private String id; // 아이디
 	private String pw; // 패스워드
@@ -126,14 +125,13 @@ public class MemberVO extends Person {
 		this.logonTime = logonTime;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberVO [mno=" + mno + ", id=" + id + ", pw=" + pw + ", nick=" + nick + ", birth=" + birth + ", sex="
-				+ sex + ", addr=" + addr + ", joindate=" + joindate + ", outdate=" + outdate + ", logonTime="
-				+ logonTime + ", getName()=" + getName() + ", getAge()=" + getAge() + ", getGender()=" + getGender()
-				+ ", getJob()=" + getJob() + ", getHobby()=" + getHobby() + "]";
-	}
-
+//	@Override
+//	public String toString() {
+//		return "MemberVO [mno=" + mno + ", id=" + id + ", pw=" + pw + ", nick=" + nick + ", birth=" + birth + ", sex="
+//				+ sex + ", addr=" + addr + ", joindate=" + joindate + ", outdate=" + outdate + ", logonTime="
+//				+ logonTime + ", getName()=" + getName() + ", getAge()=" + getAge() + ", getGender()=" + getGender()
+//				+ ", getJob()=" + getJob() + ", getHobby()=" + getHobby() + "]";
+//	}
 	
 	
 }

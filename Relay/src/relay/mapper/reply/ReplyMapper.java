@@ -12,10 +12,10 @@ import relay.vo.reply.ReplyVO;
 
 public interface ReplyMapper {
 	
-	@Insert("INSERT INTO comm (cno, bno, ccontent, creplyer) VALUES (cno.nextval, #{bno}, #{ccontent}, #{creplyer})")
+	@Insert("INSERT INTO relay.comm (bno, mno, ccontent, creplyer) VALUES (#{bno}, #{mno}, #{ccontent}, #{creplyer})")
 	public int insertReply(ReplyVO vo);
 	
-	@Select("SELECT cno, bno, ccontent, creplyer, cdate, cupdate FROM comm WHERE bno = #{bno} AND cvis = 1 ORDER BY cno")
+	@Select("SELECT cno, bno, ccontent, creplyer, cdate, cupdate FROM relay.comm WHERE bno = #{bno} ORDER BY cno")
 	public List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("bno") String bno);
 	
 	@Select("<script>" +
@@ -37,13 +37,13 @@ public interface ReplyMapper {
 			)
 	public int getTotalCountByBno(String bno);
 	
-	@Update("UPDATE comm SET ccontent = #{ccontent}, cupdate = sysdate WHERE cno = #{cno}")
+	@Update("UPDATE relay.comm SET ccontent = #{ccontent}, cupdate = now() WHERE cno = #{cno}")
 	public int updateReply(ReplyVO vo);
 	
-	@Update("UPDATE comm SET cupdate = sysdate, cvis = 0 WHERE cno = #{cno}")
+	@Update("UPDATE relay.comm SET ccontent = '삭제된 댓글입니다.',cupdate = now() WHERE cno = #{cno}")
 	public int deleteReply(String cno);
 	
-	@Select("SELECT * FROM comm WHERE cvis = 1 AND cno = #{cno}")
+	@Select("SELECT * FROM comm WHERE cno = #{cno}")
 	public ReplyVO getReply(String cno);
 	
 }

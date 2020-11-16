@@ -4,6 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
+<!-- 	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+	</settings> -->
 	<typeAliases>
 		<typeAlias alias="board" type="relay.vo.board.BoardVO"/>
 		<typeAlias alias="reply" type="relay.vo.reply.ReplyVO" />
@@ -13,7 +16,6 @@
 		<typeAlias alias="message" type="relay.vo.message.MessageVO"/>
 		<typeAlias alias="relay" type="relay.vo.relay.RelayVO"/>
 		<typeAlias alias="recommend" type="relay.vo.recommend.RecommendVO"/>
-		
 		<typeAlias alias="admin" type="relay.vo.member.MemberVO" />
 	</typeAliases>
 	

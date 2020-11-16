@@ -57,13 +57,17 @@
 					output += "<div class='team'>";
 					output += "<div class='team-image'>";
 					output += "<div class='wow bounceIn' data-wow-duration='1s' data-wow-delay='0.1s'>";
-					if(senders[i].gift.pimg == null){
-						output += "<img src='/Relay/img/relay/coming-soon.png' class='img-responsive' alt='product image'>";					
+					if(senders[i].gift.pimg==""){
+						output += "<img src='/Relay/img/relay/coming-soon.png' class='img-responsive' alt='product image' style='max-height:300px'/>";					
 					}
-					if(senders[i].gift.pimg != null){
+					if(senders[i].gift.pimg){
 						output += "<a href='"+senders[i].gift.pmallurl+"' target='_blank' title='상품페이지로 이동'>";
-						output += "<img src='"+senders[i].gift.pimg+"' class='img-responsive' alt='상품을 추가해주세요~' style='max-height:300px'>";
+						output += "<img src='"+senders[i].gift.pimg+"' class='img-responsive' alt='상품을 추가해주세요~' style='max-height:300px'/>";
 						output += "</a>";
+					}
+					output += "<input class='mt-2' style='border:0px;' id='"+senders[i].memberId+"' type='text' value='"+senders[i].message+"'/>";
+					if(id == senders[i].memberId){
+						output += "<button class='btn btn-primary btn-sm float-right mt-2' onclick='editWords(\""+listId+"\",\""+senders[i].memberId+"\")'>수정</button>"	
 					}
 					output += "</div>";
 					output += "</div>";
@@ -112,6 +116,21 @@
 				
 				}
 			},
+		})
+	}
+	
+	function editWords(listId, id) {
+		var words = $('#'+id).val()
+		console.log(words)
+		$.ajax({
+			type : 'put',
+			url : '/Relay/relay/updateText.do?listId='+listId+'&id='+id+'&words='+words,
+			success : function() {
+				alert("성공적으로 업데이트되었습니다.");
+			}, error : function() {
+				alert("업데이트를 실패했습니다...")
+			}
+			
 		})
 	}
 	

@@ -113,27 +113,28 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item"><a class="nav-link" href="/Relay/boardList.do" title="게시판">Board</a></li>
               <!--<li class="nav-item"><a class="nav-link" href="/Relay/pages/product/recommend.jsp" title="상품 추천">Recommend</a></li>-->
             </ul>
 
             <ul class="nav-shop">
-              <li class="nav-item submenu dropdown">
+            	<li class="nav-item submenu dropdown">
 				<button title="상품 검색" data-toggle="dropdown" role="button" aria-haspopup="true"
 				    aria-expanded="false" id="searchbtn"><i class="ti-search"></i></button>
 				</li>
-              <li class="nav-item"><a href="/Relay/wishlist.do?id=${id}"><button title="위시리스트"><i class="ti-heart"></i><span class="nav-shop__circle" id="wishlistcnt"></span></button></a></li>
-              <li class="nav-item"><a href="#" onClick="popupWindow('/Relay/pages/message/inbox.jsp', 'Message', window, 760, 630)"><button title="메시지"><i class="ti-email"></i><span class="nav-shop__circle" id="unread"></span></button></a></li>
-              <li class="nav-item"><a href="/Relay/memberRead.do"><button title="회원정보"><i class="ti-user"></i></button></a></li>
-              <li class="nav-item"><a href="/Relay/pages/relay/main.jsp"><button title="릴레이"><i class="ti-medall"></i></button></a></li>
-              <li class="nav-item"><a href="/Relay/memberlogout.do"><button title="로그아웃">Logout</button></a></li>
-              <li class="nav-item">
-	              <div class="dropdown" id="weather">
-	              </div>
-              </li>
-              <c:if test="${vo1.getMno() eq 1}">
-				<li class="nav-item"><a class="nav-link" href="/Relay/pages/admin/adminindex.jsp" target="_blank"><button title="관리자 페이지">Admin</button></a></li>
-			  </c:if>
+				<li class="nav-item"><a href="/Relay/pages/relay/main.jsp"><button title="릴레이"><i class="ti-medall"></i></button></a></li>
+				
+				<li class="nav-item"><a href="/Relay/wishlist.do?id=${id}"><button title="위시리스트"><i class="ti-heart"></i><span class="nav-shop__circle" id="wishlistcnt"></span></button></a></li>
+				<li class="nav-item"><a href="/Relay/boardList.do"><button title="게시판"><i class="ti-clipboard"></i></button></a></li>
+				<li class="nav-item"><a href="#" onClick="popupWindow('/Relay/pages/message/inbox.jsp', 'Message', window, 760, 630)"><button title="메시지"><i class="ti-email"></i><span class="nav-shop__circle" id="unread"></span></button></a></li>
+				<li class="nav-item"><a href="/Relay/memberRead.do"><button title="회원정보"><i class="ti-user"></i></button></a></li>
+				
+				<li class="nav-item"><a href="/Relay/memberlogout.do"><button title="로그아웃">Logout</button></a></li>
+				<li class="nav-item">
+					<div class="dropdown" id="weather"></div>
+				</li>
+				<c:if test="${vo1.getMno() eq 1}">
+					<li class="nav-item"><a class="nav-link" href="/Relay/pages/admin/adminindex.jsp" target="_blank"><button title="관리자 페이지">Admin</button></a></li>
+				</c:if>
             </ul>
           </div>
         </div>

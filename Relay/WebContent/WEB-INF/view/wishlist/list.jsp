@@ -30,7 +30,9 @@
 	function getRating(result){
 		for(var i in result){
 			var pid = result[i].pid;
+			console.log(pid)
 			var grade = result[i].grade;
+			console.log(grade)
 			for (i = 1; i <= grade; ++i) {
 				$("#rating-ability-wrapper"+pid+ " #rating-star-"+i).toggleClass('btn-warning');
 				$("#rating-ability-wrapper"+pid+ " #rating-star-"+i).toggleClass('btn-default');

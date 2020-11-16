@@ -44,10 +44,9 @@ public class MemberController {
 	
 	@RequestMapping("/memberdelete.do")
 	public ModelAndView deleteMemeber(MemberVO vo, HttpServletRequest request) {
-		
 		HttpSession session = request.getSession();
 		int res = mBiz.deleteMember(vo);
-		if (res == 1) {
+		if (res == 2) {
 			session.invalidate();
 		}
 		ModelAndView mav = new ModelAndView("member/memberout", "result", res);

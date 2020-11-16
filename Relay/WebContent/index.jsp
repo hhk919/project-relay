@@ -87,7 +87,6 @@
 					output += "<div class='card-body'>";
 					output += "<p>"+result[i].cat+"</p>";
 					output += "<h6 class='card-product__title'><a href='"+result[i].pmallurl+"' target='_blank'><b>"+result[i].pname+"</b></a></h6>";
-					output += "<p class='card-product__price' style='font-size:0.95rem;'>최저가 &#8361;<b>"+result[i].plprice+"</b></p>";
 					output += "</div>";
 					output += "</div>";
 					$("#bestSellerCarousel").html(output);
@@ -150,12 +149,12 @@
           <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
             <div class="hero-banner__content">
             	<div class="wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.8s">
-	              <h1>선물을 <font color="#0065ff">추천</font>드립니다</h1>
+	              <h1>RELAY로  선물 준비~</h1>
 	              <br>
 	            </div>
 	            <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s">
-	              <p>특별한 날에 특별한 선물을 특별한 방법으로 주고 싶은 마음은 누구에게나 있습니다. 저희는 선물 받는 분의 데이터를 기반으로 선물을 추천하는 사이트입니다.</p>
-	              <p>또한, 다수의 인원들이 중복되지 않으면서 공유하며 시너지를 내는 선물을 한 사람에게 할 수 있는 릴레이 추천 서비스를 제공합니다.</p>
+	              <p>특별한 날에 특별한 선물을 특별한 방법으로 주고 싶은 마음은 누구에게나 있습니다. <br><br> 저희는 다수의 인원들이 중복되지 않으면서 공유하며 시너지를 내는 선물을 한 사람에게 할 수 있는 릴레이 선물목록 서비스를 제공합니다.
+	              </p>
 	              <!-- <a class="button button-hero" href="#">Browse Now</a> -->
             	</div>
             </div>

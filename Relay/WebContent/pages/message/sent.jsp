@@ -27,12 +27,9 @@
 		var mno = '<c:out value="${vo1.mno}"/>';
 		$.ajax({
 			type : 'put',
-			url : '/Relay/message/getMessage.do?sno='+sno+'&mno2='+mno,
+			url : '/Relay/message/getMessage.do?sno='+sno,
 			dataType : 'text',
-			data : JSON.stringify({
-				sno : sno,
-				mno : mno,
-			}),
+			data : {sno : sno},
 			contentType : "application/json; charset=UTF-8",
 			success : function(){
 				$("#"+sno).removeClass("btn-warning").addClass("btn-light");
@@ -66,24 +63,18 @@
 						output += result[i].stitle;
 						output += "</button>";
 						if(result[i].sstate == 1){
-							output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].nick+" | "+changeDate(result[i].sdate)+" | <span>읽지않음</span></div>";
-						}else if(result[i].sstate == 2){
-							if(result[i].restate == 0){
-								output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].nick+" | "+changeDate(result[i].sdate)+" | <span>읽음</span></div>";							
-							}
-							else if(result[i].restate == 3){
-								output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].nick+" | "+changeDate(result[i].sdate)+" | <span style='color:blue'>릴레이 수락</span></div>"
-							}else if(result[i].restate == 4){
-								output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].nick+" | "+changeDate(result[i].sdate)+" | <span style='color:red'>릴레이 거절</span></div>";
-							}else if(result[i].restate == 5){
-								output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].nick+" | "+changeDate(result[i].sdate)+" | <span style='color:green'>릴레이 수락 대기중</span></div>";
-							}
+							output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].rnick+" | "+changeDate(result[i].sdate)+" | <span>읽지않음</span></div>";
 						}else{
-							output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].nick+" | "+changeDate(result[i].sdate)+" | -</div>";						
+							output += "<div class='float-right text-muted' style='font-size:0.875em'>"+result[i].rnick+" | "+changeDate(result[i].sdate)+" | <span>읽음</span></div>";						
 						}
 						output += "<div class='collapse mt-2' id='collapseExample"+result[i].sno+"'>";
 						output += "<div class='card card-body'>";
 						output += result[i].scontent;
+						output += "</div>";
+						output += "<div class='float-right'>";
+						output += "<button class='btn btn-info btn-sm mt-1' id='btnDelete' onclick='deleteMessage("+result[i].sno+")'>삭제</button>";
+						output += "</div>";
+						output += "<div id='invitation'>";
 						output += "</div>";
 						output += "</div>";
 						output += "</li>";
@@ -114,6 +105,17 @@
 				}
 	        },
 	    });
+	}
+
+	function deleteMessage(sno){
+		$.ajax({
+			type : 'put', 
+			url : '/Relay/message/delete.do?svis=2&sno=' + sno,
+			success : function(){
+				alert("삭제되었습니다.");
+				getSentList();
+			},
+		})
 	}
 	
 	function changeDate(date){

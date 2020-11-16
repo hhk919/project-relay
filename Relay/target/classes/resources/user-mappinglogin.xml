@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="member" >
 	<select id="selectMember" parameterType="member" resultType="member">
-	SELECT * FROM member JOIN detail USING (mno) WHERE id = #{id} AND pw = #{pw}	
+	SELECT * FROM relay.member JOIN relay.detail USING (mno) WHERE id = #{id} AND pw = #{pw}	
 	</select>
 	
 </mapper>

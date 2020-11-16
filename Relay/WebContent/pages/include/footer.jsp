@@ -22,27 +22,24 @@
 								특별한 날에 특별한 선물을 특별한 방법으로 주고 싶은 마음은 누구에게나 있습니다. 
 							</p>
 							<p>
-								저희는 선물 받는 분의 데이터를 기반으로 선물을 추천하는 사이트입니다.
-							</p>
-							<p>
-								또한, 다수의 인원들이 중복되지 않으면서 공유하며 시너지를 내는 선물을 한 사람에게 할 수 있는 릴레이 추천 서비스를 제공합니다.
+								저희는 다수의 인원들이 중복되지 않으면서 공유하며 시너지를 내는 선물을 한 사람에게 할 수 있는 릴레이 선물목록 서비스를 제공합니다.
 							</p>
 						</div>
 					</div>
-					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+<!-- 					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
 							<h4 class="footer_title">Quick Links</h4>
 							<ul class="list">
 								<li><a href="/Relay/index.jsp">Home</a></li>
 								<li><a href="/Relay/boardList.do">Board</a></li>
-								<li><a href="/Relay/pages/product/recommend.jsp">Recommend</a></li>
-								<!-- <li><a href="#">Blog</a></li>
+								 <li><a href="/Relay/pages/product/recommend.jsp">Recommend</a></li>
+								<li><a href="#">Blog</a></li>
 								<li><a href="#">Product</a></li>
 								<li><a href="#">Brand</a></li>
-								<li><a href="#">Contact</a></li> -->
+								<li><a href="#">Contact</a></li>
 							</ul>
 						</div>
-					</div>
+					</div> -->
 					<div class="col-lg-2 col-md-6 col-sm-6">
 						<div class="single-footer-widget instafeed">
 							<h4 class="footer_title">Team Members</h4>

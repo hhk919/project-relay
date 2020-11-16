@@ -1,6 +1,8 @@
 package relay.biz.member;
 
 import java.util.List;
+import java.time.LocalDate;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,20 +36,25 @@ public class MemberBIZ {
 
 	public String insertMember(MemberVO vo) {
 
-		int r = vo.getBirth() / 10000;
-		System.out.println(r);
-		if (r >= 0 && r <= 9) {
-			vo.setAge(10);
-		} else if (r >= 90 && r <= 99) {
-			vo.setAge(20);
-		} else if (r >= 80 && r <= 89) {
-			vo.setAge(30);
-		} else if (r >= 70 && r <= 79) {
-			vo.setAge(40);
-		} else if (r >= 60 && r <= 69) {
-			vo.setAge(50);
-		} else if (r < 60 && r > 19) {
-			vo.setAge(60);
+		int year = vo.getBirth() / 10000;
+		int now = LocalDate.now().getYear();
+		if (year>=0 && year<=(now - 2000)) {
+			int age = (int) ((now-(2000+year))/10*10);
+			if(age<=10) {
+				vo.setAge(10);
+			}
+			else if (age>=60) {
+				vo.setAge(60);
+			}
+			else {
+				vo.setAge(age);
+			}
+			
+		}
+		else {
+			int age = (int) ((now-(1900+year))/10*10);
+			vo.setAge(age);
+			
 		}
 
 		int s = vo.getSex();
@@ -56,7 +63,7 @@ public class MemberBIZ {
 		} else {
 			vo.setGender("¿©ÀÚ");
 		}
-
+		
 		return dao.insertMemeber(vo);
 	}
 
@@ -80,8 +87,8 @@ public class MemberBIZ {
 		return dao.getMemberNick(nick);
 	}
 	
-	public int getMemberNO(String nick) {
-		return dao.getMemberNO(nick);
-	}
+//	public int getMemberNO(String nick) {
+//		return dao.getMemberNO(nick);
+//	}
 
 }

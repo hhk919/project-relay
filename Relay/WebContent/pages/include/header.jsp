@@ -77,21 +77,19 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item"><a class="nav-link" href="/Relay/boardList.do" title="게시판">Board</a></li>
               <!-- <li class="nav-item"><a class="nav-link" href="/Relay/pages/product/recommend.jsp" title="상품 추천">Recommend</a></li>-->
             </ul>
-
             <ul class="nav-shop">
 				<li class="nav-item submenu dropdown">
 					<button title="상품 검색" data-toggle="dropdown" role="button" aria-haspopup="true"
 				    aria-expanded="false" id="searchbtn"><i class="ti-search"></i></button>
 				</li>
-              <li class="nav-item"><a class="nav-link" href="/Relay/pages/login/login.jsp"><button title="로그인">Login</button></a></li>
-              <li class="nav-item"><a class="nav-link" href="/Relay/pages/member/memberinsert.jsp"><button title="회원가입">Join</button></a></li>
-              <li class="nav-item">
-	              <div class="dropdown" id="weather">
-	              </div>
-              </li>
+				<li class="nav-item"><a href="/Relay/boardList.do"><button title="게시판"><i class="ti-clipboard"></i></button></a></li>
+            	<li class="nav-item"><a class="nav-link" href="/Relay/pages/login/login.jsp"><button title="로그인">Login</button></a></li>
+	            <li class="nav-item"><a class="nav-link" href="/Relay/pages/member/memberinsert.jsp"><button title="회원가입">Join</button></a></li>
+	            <li class="nav-item">
+	            	<div class="dropdown" id="weather"></div>
+              	</li>
             </ul>
           </div>
         </div>

@@ -11,32 +11,32 @@ import relay.vo.message.MessageVO;
 
 public interface MessageMapper {
 
-	@Select("SELECT m.sno, m.mno1, m.mno2, m.stitle, m.scontent, m.sstate, m.sdate, m.restate, m.rno, a.name, a.nick " + 
-			"FROM message m JOIN member a ON m.mno1 = a.mno " + 
-			"WHERE m.mno2 = #{mno} AND svis = 1 ORDER BY sno DESC")
-	public List<MessageVO> getList(String mno);
+	@Select("SELECT * " + 
+			"FROM relay.message m USE INDEX (PRIMARY) " + 
+			"WHERE m.receiver = #{receiver} AND svis IN (1,2) ORDER BY sno DESC")
+	public List<MessageVO> getList(String receiver);
 	
-	@Select("SELECT m.sno, m.mno1, m.mno2, m.stitle, m.scontent, m.sstate, m.sdate, m.restate, a.name, a.nick " + 
-			"FROM message m JOIN member a ON m.mno2 = a.mno " + 
-			"WHERE m.mno1 = #{mno} AND svis = 1 ORDER BY sno DESC")
-	public List<MessageVO> getSentList(String mno);
+	@Select("SELECT * " + 
+			"FROM relay.message m USE INDEX (PRIMARY) " + 
+			"WHERE m.sender = #{sender} AND svis IN (1,3) ORDER BY sno DESC")
+	public List<MessageVO> getSentList(String sender);
 	
-	@Select("SELECT COUNT(*) FROM message WHERE sstate = 1 AND mno2 = #{mno}")
+	@Select("SELECT COUNT(*) FROM relay.message WHERE sstate = 1 AND receiver = #{mno}")
 	public int getUnreadCount(String mno);
 	
-	@Insert("INSERT INTO message VALUES(sno.nextval, #{mno1}, #{mno2}, #{stitle}, #{scontent}, #{sstate}, default, default, #{restate}, (SELECT MAX(rno) FROM relay))")
+	@Insert("INSERT INTO relay.message (sender, snick, receiver, rnick, stitle, scontent) VALUES (#{sender}, (select nick from relay.member where mno = #{sender}), #{receiver}, (select nick from relay.member where mno = #{receiver}), #{stitle}, #{scontent})")
 	public int insertMessage(MessageVO vo);
 	
-	@Insert("INSERT INTO message VALUES(sno.nextval, #{mno1}, #{mno2}, #{stitle}, #{scontent}, #{sstate}, default, default, #{restate}, #{rno})")
-	public int insertMessageForInvited(MessageVO vo);
+//	@Insert("INSERT INTO message VALUES(#{mno1}, #{mno2}, #{stitle}, #{scontent}, #{sstate}, default, default, #{restate})")
+//	public int insertMessageForInvited(MessageVO vo);
 	
-	@Update("UPDATE message SET svis = 0 WHERE sno = #{sno}")
-	public int deleteMessage(int sno);
+	@Update("UPDATE relay.message SET svis = CASE WHEN svis = 2 THEN 0 WHEN svis = 3 THEN 0 ELSE #{svis} END WHERE sno = #{sno}")
+	public int deleteMessage(@Param("svis")int svis, @Param("sno")int sno);
 
-	@Update("UPDATE message SET sstate = 2 WHERE sno = #{sno} AND mno2 = #{mno2}")
-	public int getMessage(@Param("sno") int sno, @Param("mno2") String mno2);
+	@Update("UPDATE relay.message SET sstate = 0 WHERE sno = #{sno}")
+	public int getMessage(int sno);
 
-	@Update("UPDATE message SET restate = #{restate} WHERE sno = #{sno} AND mno2 = #{mno2}")
-	public int updateRestate(@Param("sno") int sno, @Param("mno2") int mno2, @Param("restate") int restate);
+//	@Update("UPDATE message SET restate = #{restate} WHERE sno = #{sno} AND mno2 = #{mno2}")
+//	public int updateRestate(@Param("sno") int sno, @Param("mno2") int mno2, @Param("restate") int restate);
 	
 }

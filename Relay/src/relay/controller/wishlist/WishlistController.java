@@ -50,8 +50,8 @@ public class WishlistController {
 	}
 	
 	@RequestMapping("/wishlist/cnt.do")
-	public int getTotal(@RequestParam("id") String memberId) {
-		int cnt = wBiz.getTotal(memberId);
+	public long getTotal(@RequestParam("id") String memberId) {
+		long cnt = wBiz.getTotal(memberId);
 		return cnt;
 	}
 	

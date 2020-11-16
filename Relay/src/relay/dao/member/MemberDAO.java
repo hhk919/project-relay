@@ -71,8 +71,12 @@ public class MemberDAO {
 		String result = null;
 		try {
 			int n = factory.openSession().insert("member.insertMember", vo);
-			if (n< 0)
+			if (n==1) {
+				factory.openSession().commit();
 				result = vo.getId();
+			} else {
+				factory.openSession().rollback();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

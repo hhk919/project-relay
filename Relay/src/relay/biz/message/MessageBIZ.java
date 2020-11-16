@@ -14,8 +14,8 @@ public class MessageBIZ {
 	@Autowired
 	private MessageDAO dao;
 
-	public List<MessageVO> getList(String mno) {
-		return dao.getList(mno);
+	public List<MessageVO> getList(String receiver) {
+		return dao.getList(receiver);
 	}
 	
 	public List<MessageVO> getSentList(String mno) {
@@ -30,20 +30,20 @@ public class MessageBIZ {
 		return dao.insertMessage(vo);
 	}
 	
-	public int insertMessageForInvited(MessageVO vo) {
-		return dao.insertMessageForInvited(vo);
+//	public int insertMessageForInvited(MessageVO vo) {
+//		return dao.insertMessageForInvited(vo);
+//	}
+
+	public int deleteMessage(int svis, int sno) {
+		return dao.deleteMessage(svis, sno);
 	}
 
-	public int deleteMessage(int sno) {
-		return dao.deleteMessage(sno);
+	public int getMessage(int sno) {
+		return dao.getMessage(sno);
 	}
 
-	public int getMessage(int sno, String mno2) {
-		return dao.getMessage(sno, mno2);
-	}
-
-	public int updateRestate(int sno, int mno2, int restate) {
-		return dao.updateRestate(sno, mno2, restate);
-	}
+//	public int updateRestate(int sno, int mno2, int restate) {
+//		return dao.updateRestate(sno, mno2, restate);
+//	}
 	
 }

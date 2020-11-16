@@ -25,8 +25,8 @@ public class WishlistBIZ {
 	}
 	
 	public int insertWishlist(JSONObject data, MemberVO member) {
+		member.setPw("******");
 		data.replace("pid", data.get("pid"), Long.parseLong((String)data.get("pid")));
-		data.replace("catid", data.get("catid"), Long.parseLong((String)data.get("catid")));
 		data.replace("phprice", data.get("phprice"), Integer.parseInt((String)data.get("phprice")));
 		data.replace("plprice", data.get("plprice"), Integer.parseInt((String)data.get("plprice")));
 		return dao.insertWishlist(member, data);

@@ -38,7 +38,7 @@ public class ReplyController {
 	@RequestMapping("/replyList.do")
 	public List<ReplyVO> getList(@RequestParam String bno, 
 			@RequestParam(defaultValue = "1") int page){
-		Criteria cri = new Criteria(page, 10);
+		Criteria cri = new Criteria(page, 10, (page-1)*10);
 		List<ReplyVO> list = rBiz.getList(cri, bno);	
 		return list;
 	}

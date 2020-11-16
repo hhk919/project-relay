@@ -133,5 +133,14 @@ public class BoardVO {
 		this.bcnt = bcnt;
 	}
 
+	@Override
+	public String toString() {
+		return "BoardVO [bno=" + bno + ", btitle=" + btitle + ", bcontent=" + bcontent + ", mno=" + mno + ", nick="
+				+ nick + ", bdate=" + bdate + ", bupdate=" + bupdate + ", btag=" + btag + ", bimg=" + bimg
+				+ ", bimgurl=" + bimgurl + ", bcnt=" + bcnt + ", bvis=" + bvis + ", breplycnt=" + breplycnt + ", file="
+				+ file + "]";
+	}
+
+	
 	
 }

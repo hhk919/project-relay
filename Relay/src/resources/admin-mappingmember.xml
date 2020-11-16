@@ -11,17 +11,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>  -->
 	
 	<select id="selectAllMember" parameterType="admin" resultType="admin">
-		SELECT * FROM member JOIN detail USING (mno)
+		SELECT * FROM relay.member JOIN relay.detail USING (mno)
 	</select>
 	
 	<!-- 회원탈퇴 delete 대신 update로 정보 변경 -->
 	<update id="deleteMember" parameterType="admin">
-		UPDATE member SET id = dno.nextval, pw = dno.currval, name = dno.currval, nick = dno.currval, birth = 000000, sex = 1, addr = dno.currval WHERE mno = #{mno} 
+		UPDATE relay.member m JOIN relay.detail d ON m.mno = d.mno SET m.id = CONCAT('quit',m.mno), m.pw = CONCAT('quit',m.mno), m.name = CONCAT('quit',m.mno), m.nick = CONCAT('quit',m.mno), m.birth = 000000, m.sex = 0, m.addr = 'None', d.age = 0, d.outdate = curdate() WHERE m.mno = #{mno} 
 	</update>
 	
 	<!--  관리자페이지에서는 회원을 DB에서 삭제 -->
 	<delete id="deleteMember2" parameterType="admin">
-		DELETE FROM member WHERE mno = #{mno} 
+		DELETE FROM relay.member WHERE mno = #{mno}  
 	</delete> 
 	
 </mapper>

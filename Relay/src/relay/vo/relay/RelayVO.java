@@ -3,6 +3,8 @@ package relay.vo.relay;
 import java.util.List;
 
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -11,9 +13,10 @@ import relay.vo.member.Person;
 
 
 @Document(collection="giftlist")
+@CompoundIndex(def = "{'senders.memberid':-1}", background=true)
 public class RelayVO {
 
-	@Indexed(unique = true)
+	@Indexed(unique = true, background=true, direction=IndexDirection.DESCENDING)
 	@Field("listId")
 	private String listId;
 	@Field("recipient")

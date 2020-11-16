@@ -30,7 +30,7 @@
 			url : "/Relay/member/getMemberNick.do",
 			success : function(result){
 				var op = new Option(result.id,result.nick);
-				op.setAttribute("name",result.nick)
+				op.setAttribute("data-no",result.mno)
 				$("#memberNick").append(op);
 	        },
 	        error : function(error) {
@@ -39,16 +39,18 @@
 	    });
 	}
 	function addSender(){
-		nick = document.getElementById("idsearchbynick").value
+		nick = document.getElementById("idsearchbynick").value ;
 		
 		if (nick != '' && document.getElementById(nick) == null) {
 			var tr = document.createElement("tr");
-			var memberid = $("option[name='"+nick+"']").text();
+			var memberid = $("option[value='"+nick+"']").text() ;
+			var mno = $("option[value='"+nick+"']").attr("data-no");
 			tr.innerHTML = '<td colspan="3">'+nick+'</td>\n'+'<td colspan="1"><button onclick="delSender(this)">빼기</button></td>'
 			tr.setAttribute("name",nick);
 			tr.setAttribute("id",memberid);
-			tr.setAttribute("class","senders")
-			tr.setAttribute("style","text-align:center")
+			tr.setAttribute("data-no",mno);
+			tr.setAttribute("class","senders");
+			tr.setAttribute("style","text-align:center");
 			document.querySelector("#selected").before(tr);
 			
 		}
@@ -59,6 +61,7 @@
 	};
 	
 	function startRelay() {
+		var mno = '<c:out value="${vo1.mno}"/>';
 		var id = '<c:out value="${vo1.id}"/>';
 		var nick = '<c:out value="${vo1.nick}"/>';
 		var listId = "";
@@ -69,11 +72,14 @@
 		var sendersvo = []
 		var senders = $(".senders");
 		var maker = new Object();
+		maker.mno = mno;
 		maker.memberId = id;
 		maker.memberNick = nick;
 		sendersvo.push(maker);
 		senders.each(function(){
 			var sender = new Object();
+			sender.mno = $(this).attr("data-no")
+			console.log("mno",sender.mno)
 			sender.memberId = $(this).attr("id");
 			sender.memberNick = $(this).attr("name")
 			sendersvo.push(sender);
@@ -127,12 +133,10 @@ td {
 	<table align="center">
 		<tr>
 		<td>
-			<div class="form-row mb-3">
 	    	<div class="col-10 col-sm-11">
 	    		<input type="text" id="idsearchbynick" list="memberNick" placeholder="닉네임을 입력 후 엔터">
 	    	<!--  <input type="text" class="form-control" id="nick" list="memberNicks" placeholder="아이디" autocomplete="off">-->
-					<datalist id="memberNick"></datalist>
-			</div>
+				<datalist id="memberNick"></datalist>
 			</div>
 		</td>
 		<td>

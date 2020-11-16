@@ -39,23 +39,24 @@ public class RelayBIZ {
 		
 		List<Sender> senders = new ArrayList<>();
 		ProductVO gift = new ProductVO(); 
-		
 		for (int i=0;i<jsonarray.size();i++) {
+			int mno = Integer.parseInt((String)((JSONObject)jsonarray.get(i)).get("mno"));
 			String senderId = (String)((JSONObject)jsonarray.get(i)).get("memberId");
 			String senderNick = (String)((JSONObject)jsonarray.get(i)).get("memberNick");
-			senders.add(new Sender(senderId, senderNick, gift));
+			senders.add(new Sender(mno, senderId, senderNick, gift));
 		}
 
 		RelayVO giftlist = new RelayVO(listId, recipient, senders);
 		return dao.create(giftlist);
 	}
 
-	public RelayVO addSender(String listId, String memberId, String memberName, ProductVO gift) {
-		Sender sender = new Sender(memberId, memberName, gift);
+	public RelayVO addSender(int mno, String listId, String memberId, String memberName, ProductVO gift) {
+		Sender sender = new Sender(mno, memberId, memberName, gift);
 		return dao.addSender(listId, sender);
 	}
 
 	public List<BasicBSONObject> getInfo(String memberId) {
+		
 		return dao.getInfo(memberId);
 	}
 
@@ -84,8 +85,8 @@ public class RelayBIZ {
 		return dao.updateGift(listId, memberId, gift);
 	}
 
-	public RelayVO updateMessage(String listId, String memberId, String message) {
-		return dao.updateMessage(listId, memberId, message);
+	public int updateMessage(String listId, String memberId, String words) {
+		return dao.updateMessage(listId, memberId, words);
 	}
 
 	public long deleteByListId(String listId, String memberId) {

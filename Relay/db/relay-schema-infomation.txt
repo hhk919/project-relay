@@ -1,0 +1,176 @@
+-- member table --
+DROP TABLE IF EXISTS member;
+
+CREATE TABLE `member` (
+  `mno` mediumint NOT NULL AUTO_INCREMENT,
+  `id` varchar(50) NOT NULL,
+  `pw` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `nick` varchar(50) NOT NULL,
+  `birth` mediumint NOT NULL,
+  `sex` tinyint NOT NULL,
+  `addr` varchar(200) NOT NULL,
+  PRIMARY KEY (`mno`),
+  CONSTRAINT `member_chk_1` CHECK ((`sex` in (1,2,3,4)))
+)
+
+-- detail table --
+DROP TABLE IF EXISTS detail;
+CREATE TABLE `detail` (
+  `mno` mediumint NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `age` tinyint NOT NULL,
+  `job` varchar(100) DEFAULT NULL,
+  `hobby` varchar(200) DEFAULT NULL,
+  `joindate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `outdate` datetime DEFAULT NULL,
+  KEY `mno` (`mno`),
+  CONSTRAINT `detail_ibfk_1` FOREIGN KEY (`mno`) REFERENCES `member` (`mno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `detail_chk_1` CHECK ((`age` in (10,20,30,40,50,60)))
+)
+
+-- mem_insert procedure --
+
+CREATE PROCEDURE `MEM_INSERT`(
+in mid varchar(50),
+in mpw varchar(50),
+in mname varchar(50),
+in mnick varchar(50),
+in mbirth mediumint,
+in msex tinyint,
+in maddr varchar(200),
+in dgender varchar(10),
+in dage tinyint,
+in djob varchar(100),
+in dhobby varchar(200)
+)
+begin
+	DECLARE fk mediumint;
+	insert into relay.member(id, pw, name, nick, birth, sex, addr)
+	values(mid, mpw, mname, mnick, mbirth, msex, maddr);
+	SET fk = (select mno from relay.member where id = mid);
+	insert into relay.detail(mno, gender, age, job, hobby, joindate)
+	values(fk, dgender, dage, djob, dhobby, default);
+end
+
+
+
+-- mem_update procedure --
+
+CREATE PROCEDURE `MEM_UPDATE`(
+in mid varchar(50),
+in mpw varchar(50),
+in mnick varchar(50),
+in maddr varchar(200),
+in djob varchar(100),
+in dhobby varchar(200)
+)
+begin
+update relay.member set pw=mpw, nick=mnick, addr=maddr where id=mid;
+update relay.detail set job=djob, hobby=dhobby
+where mno = (select mno from relay.member where id=mid);
+end
+
+
+
+-- board table --
+DROP TABLE IF EXISTS board;
+
+CREATE TABLE `board` (
+  `bno` mediumint NOT NULL AUTO_INCREMENT,
+  `mno` mediumint NOT NULL,
+  `btag` varchar(50) NOT NULL,
+  `btitle` varchar(1000) NOT NULL,
+  `bcontent` varchar(2000) NOT NULL,
+  `bimg` varchar(1000) DEFAULT NULL,
+  `bimgurl` varchar(1000) DEFAULT NULL,
+  `bdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `bupdate` datetime DEFAULT NULL,
+  `bvis` tinyint NOT NULL DEFAULT '1',
+  `bcnt` smallint DEFAULT '0',
+  `breplycnt` smallint DEFAULT '0',
+  PRIMARY KEY (`bno`),
+  KEY `mno` (`mno`),
+  CONSTRAINT `board_ibfk_1` FOREIGN KEY (`mno`) REFERENCES `member` (`mno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `board_chk_1` CHECK ((`bvis` in (0,1)))
+)
+
+
+
+-- comm table --
+
+DROP TABLE IF EXISTS comm;
+
+CREATE TABLE `comm` (
+  `bno` mediumint NOT NULL,
+  `cno` mediumint NOT NULL AUTO_INCREMENT,
+  `ccontent` varchar(500) NOT NULL,
+  `creplyer` varchar(50) NOT NULL,
+  `cdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cupdate` datetime DEFAULT NULL,
+  `mno` mediumint NOT NULL,
+  PRIMARY KEY (`cno`),
+  KEY `bno` (`bno`),
+  KEY `mno` (`mno`),
+  CONSTRAINT `comm_ibfk_1` FOREIGN KEY (`bno`) REFERENCES `board` (`bno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comm_ibfk_2` FOREIGN KEY (`mno`) REFERENCES `member` (`mno`)
+)
+
+
+
+-- notice table --
+
+-- DROP TABLE IF EXISTS notice;
+
+CREATE TABLE `notice` (
+  `nno` mediumint NOT NULL AUTO_INCREMENT,
+  `mno` mediumint NOT NULL,
+  `ntitle` varchar(200) NOT NULL,
+  `ncontent` varchar(2000) NOT NULL,
+  `ndate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `nupdate` datetime DEFAULT NULL,
+  `nvis` tinyint NOT NULL DEFAULT '1',
+  `ncnt` smallint DEFAULT '0',
+  PRIMARY KEY (`nno`),
+  KEY `mno` (`mno`),
+  CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`mno`) REFERENCES `member` (`mno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `notice_chk_1` CHECK ((`nvis` in (0,1)))
+)
+
+
+
+-- message table --
+
+DROP TABLE IF EXISTS relay.message;
+
+CREATE TABLE `message` (
+  `sno` mediumint NOT NULL AUTO_INCREMENT,
+  `sender` mediumint NOT NULL,
+  `snick` varchar(50) NOT NULL,
+  `receiver` mediumint NOT NULL,
+  `rnick` varchar(50) NOT NULL,
+  `stitle` varchar(500) NOT NULL,
+  `scontent` varchar(2000) NOT NULL,
+  `sstate` tinyint NOT NULL DEFAULT '1',
+  `sdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `svis` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`sno`),
+  KEY `receiver` (`receiver`),
+  KEY `sender` (`sender`),
+  CONSTRAINT `message_ibfk_1` FOREIGN KEY (`sender`) REFERENCES `member` (`mno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `message_ibfk_2` FOREIGN KEY (`receiver`) REFERENCES `member` (`mno`) ON DELETE CASCADE ON UPDATE CASCADE
+) 
+
+
+
+
+
+* 참고사항
+mysql은 windows에서는 case sensitive하지 않지만 most unix, linux에서는 case sensitive하다....
+
+
+mongodb free monitoring
+https://cloud.mongodb.com/freemonitoring/cluster/CZNWP54KDCHCDQBXIBAFWIBY7OJXLNEC
+
+id : admin
+password : otFbVxhWGnOuwjiPR9

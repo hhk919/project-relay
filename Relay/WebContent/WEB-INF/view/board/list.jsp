@@ -199,6 +199,7 @@
 								<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 								<input type="hidden" name="type" value="<c:out value="${ pageMaker.cri.type }"/>">
 								<input type="hidden" name="keyword" value="<c:out value="${ pageMaker.cri.keyword }"/>">
+								<!--  <input type='hidden' name='offset' value="<c:out value="${ (pageMaker.cri.pageNum-1)*pageMaker.cri.amount }"/>">-->
 							</form>
 						</nav>
 					</td>
@@ -225,6 +226,7 @@
 						<input type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>' style="padding-bottom: 6px; width: 226px" class="form-control"/>
 						<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>' />
 						<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
+						<!-- <input type='hidden' name='offset' value='<c:out value="${ (pageMaker.cri.pageNum-1)*pageMaker.cri.amount }"/>' /> -->
 						<button class="btn btn-primary pull right">검색</button>
 					</form>
 				</div>

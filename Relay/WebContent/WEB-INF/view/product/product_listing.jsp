@@ -28,8 +28,8 @@
 			  $p('[data-toggle="tooltip"]').tooltip()
 		});
 	});
-
-	function insertWishlist(pid, pname, phprice, plprice, pmall, pmallurl, pimg, cat, catid, tags){
+	<!--선택한 상품을 wishlist에 추가-->
+	function insertWishlist(pid, pname, phprice, plprice, pmall, pmallurl, pimg, brand, cat){
 		var id = '<c:out value="${id}"/>';
 		var member = '<c:out value="${vo1}"/>';
 		if($p.isEmptyObject(id)){
@@ -47,9 +47,8 @@
 					pmall : pmall,
 					pmallurl : pmallurl,
 					pimg : pimg,
+					brand : brand,
 					cat : cat,
-					catid : catid,
-					tags : tags,
 					grade : 0
 				}),
 				contentType : "application/json; charset=UTF-8",
@@ -58,12 +57,12 @@
 					$p("#wishlistbutton"+pid).prop('disabled', true);
 					getTotal();
 				}, error : function() {
-					alert("이미 추가되었습니다");
+					alert("잠시 후 다시 시도해주세요");
 				}
 			})
 		}
 	}
-
+	<!--user의 wishlist 정보 가져오기-->
 	function getWishlist() {
 		var id = '<c:out value="${id}"/>';
 		$p.ajax({
@@ -87,7 +86,7 @@
 	    });
 	}
 	
-<!--	function getInfo(pid, pname, phprice, plprice, pmall, pmallurl, pimg, catid, tags){-->
+	<!--user가 참여하고 있는 relay의 기본정보(번호, 받는이)-->
 	function getInfo(pid){
 		var id = '<c:out value="${id}"/>';
 		if($p.isEmptyObject(id)){
@@ -115,8 +114,8 @@
 			});
 		}
 	}
-	
-	function updateGift(pid, pname, phprice, plprice, pmall, pmallurl, pimg, cat, catid, tags){
+	<!--user가 참여하고 있는 relay에 상품 추가(update)-->
+	function updateGift(pid, pname, phprice, plprice, pmall, pmallurl, pimg, brand, cat){
 		var listId = $p("#getRelay"+pid).val();
 		var id = '<c:out value="${id}"/>';
 		if($p.isEmptyObject(id)){
@@ -136,9 +135,8 @@
 					pmall : pmall,
 					pmallurl : pmallurl,
 					pimg : pimg,
-					cat : cat,
-					catid : catid,
-					tags : tags,
+					brand : brand,
+					cat : cat
 				}),
 				contentType : "application/json; charset=UTF-8",
 				success : function() {
@@ -189,7 +187,7 @@
 			        	</div>
 			        		<div class="media-body order-2 order-lg-2">
 			            		<h5 class="mt-0 font-weight-bold mb-2"><a href="${list.link}" target="_blank" onclick="redirect('${list.link}')">${list.title}</a></h5>
-			              		<c:if test="${list.hprice ne list.lprice}">
+			              		<c:if test="${list.hprice ne list.lprice && list.hprice ne '0'}">
 				              		<div class="d-flex align-items-center justify-content-between mt-1">
 				                		<h6 class="font-weight-bold my-2">최저가  <fmt:formatNumber type="currency" value="${list.lprice}" /></h6>
 				              		</div>
@@ -197,20 +195,20 @@
 				              			<h6 class="font-weight-bold my-2">최고가  <fmt:formatNumber type="currency" value="${list.hprice}" /></h6>
 									</div>
 								</c:if>
-			              		<c:if test="${list.hprice eq list.lprice}">
+			              		<c:if test="${list.hprice eq list.lprice || list.hprice eq '0'}">
 				              		<div class="d-flex align-items-center justify-content-between mt-1">
-				              			<h6 class="font-weight-bold my-2">가격  <fmt:formatNumber type="currency" value="${list.hprice}" /></h6>
+				              			<h6 class="font-weight-bold my-2">가격  <fmt:formatNumber type="currency" value="${list.lprice}" /></h6>
 									</div>
 								</c:if>
 								<div class="d-flex align-items-center justify-content-between mt-1">
-									<h6 class="font-weight-bold my-2">${list.cat}</h6>
+									<h6 class="font-weight-bold my-2">${list.brand}</h6>
 								</div>
 								<div class="d-flex align-items-center justify-content-between mt-1">
-									<h6 class="font-weight-bold my-2" data-toggle="tooltip" data-placement="right" data-html="true" title="상품 구매자들의 리뷰를 분석하여 추출한 리뷰 토픽">${list.tags}</h6>
+									<h6 class="font-weight-bold my-2">${list.cat}</h6>
 								</div>
 								<div class="float-right">
 									<div class="d-flex align-items-center justify-content-between mt-3">
-										<button id="wishlistbutton${list.productId}" class="btn btn-light btn-sm" onclick="insertWishlist('${list.productId}','${list.title}','${list.hprice}','${list.lprice}','${list.mallName}','${list.link}','${list.image}','${list.cat}','${list.cat_id}','${list.tags}')">
+										<button id="wishlistbutton${list.productId}" class="btn btn-light btn-sm" onclick="insertWishlist('${list.productId}','${list.title}','${list.hprice}','${list.lprice}','${list.mallName}','${list.link}','${list.image}','${list.cat}')">
 											ADD TO WISHLIST
 										</button>
 										<button id="relaybutton${list.productId}" class="btn btn-light btn-sm ml-2" onclick="getInfo('${list.productId}')">
@@ -218,7 +216,7 @@
 										</button>
 										<select class="form-control form-control-sm ml-2" id="getRelay${list.productId}" style="display: none;">
 										</select>
-										<button class="btn btn-primary btn-sm ml-1" id="add${list.productId}" onclick="updateGift('${list.productId}','${list.title}','${list.hprice}','${list.lprice}','${list.mallName}','${list.link}','${list.image}','${list.cat}','${list.cat_id}','${list.tags}')" style="display: none;">ADD</button>
+										<button class="btn btn-primary btn-sm ml-1" id="add${list.productId}" onclick="updateGift('${list.productId}','${list.title}','${list.hprice}','${list.lprice}','${list.mallName}','${list.link}','${list.image}','${list.cat}')" style="display: none;">ADD</button>
 									</div>
 								</div>
 			            	</div>

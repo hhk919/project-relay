@@ -16,14 +16,8 @@ table {
 }
 </style>
 <script>
-	$(document)
-			.on(
-					'click',
-					'#btnList',
-					function() {
-						location.href = "${pageContext.request.contextPath}/board/getBoardList";
-					});
-	
+	$(document).on('click','#btnList',
+					function() {location.href = "${pageContext.request.contextPath}/board/getBoardList";});
 	$('#myModal').on('shown.bs.modal', function () {
 		  $('#myInput').trigger('focus')
 		})

@@ -2,11 +2,11 @@ package relay.vo.product;
 
 public class ProductVO {
 
-//	private long pno;
 	private long pid;
 	private String pname;
 	private int phprice;
 	private int plprice;
+	private int grade;
 	private String pmall;
 	private String pmallurl;
 	private String pimg;
@@ -19,6 +19,7 @@ public class ProductVO {
 		this.pname = "";
 		this.phprice = 0;
 		this.plprice = 0;
+		this.grade = 0;
 		this.pmall = "";
 		this.pmallurl = "";
 		this.pimg = "";
@@ -40,14 +41,6 @@ public class ProductVO {
 		this.catid = catid;
 		this.tags = tags;
 	}
-
-//	public long getPno() {
-//		return pno;
-//	}
-//
-//	public void setPno(long pno) {
-//		this.pno = pno;
-//	}
 
 	public long getPid() {
 		return pid;
@@ -129,4 +122,12 @@ public class ProductVO {
 		this.tags = tags;
 	}
 
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	
 }

@@ -18,4 +18,4 @@ DAO<br>
 <a href="Relay/src/relay/dao/wishlist/WishlistDAO.java">Wishlist</a>
 <a href="Relay/src/relay/dao/relay/RelayDAO.java">Relay</a>
 
-주소 : 124.53.56.120:8080/Relay
+주소 : http://13.125.2.45:8080/Relay
